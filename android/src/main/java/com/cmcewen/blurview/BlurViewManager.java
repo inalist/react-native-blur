@@ -44,12 +44,8 @@ public class BlurViewManager extends SimpleViewManager<BlurringView> {
 
     @ReactProp(name = "viewRef")
     public void setViewRef(BlurringView view, int viewRef) {
-        ViewGroup viewGroup = (ViewGroup) view.getRootView().findViewById(viewRef);
-        if (viewGroup != null) {
-            View v = viewGroup.getChildAt(0);
-            view.setBlurredView(v);
-            view.invalidate();
-        }
+        View v = view.getRootView().findViewById(viewRef);
+        view.setBlurredView(v);
+        view.invalidate();
     }
 }
-
