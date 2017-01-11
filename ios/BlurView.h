@@ -4,5 +4,6 @@
 
 @property (nonatomic, copy) NSString *blurType;
 @property (nonatomic, copy) NSNumber *blurAmount;
+@property (nonatomic) BOOL blurEnabled;
 
 @end

@@ -5,14 +5,43 @@
 @implementation BlurView {
   UIVisualEffectView *_visualEffectView;
   UIBlurEffect * blurEffect;
+  BOOL enabled;
+}
+
+- (void)setBlurEnabled:(BOOL)blurEnabled
+{
+    if (blurEnabled) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (_visualEffectView) {
+                [_visualEffectView removeFromSuperview];
+            }
+            _visualEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
+            _visualEffectView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+            _visualEffectView.frame = self.bounds;
+            _visualEffectView.alpha = 0;
+            [self.superview.superview insertSubview:_visualEffectView atIndex:self.superview.subviews.count];
+            [UIView animateWithDuration:0.5 animations:^{
+                _visualEffectView.alpha = 1.0;
+            }];
+        });
+    } else {
+        if (enabled && _visualEffectView) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [UIView animateWithDuration:0.5 animations:^{
+                    _visualEffectView.alpha = 0;
+                } completion:^(BOOL finished) {
+                    [_visualEffectView removeFromSuperview];
+                    _visualEffectView = nil;
+                }];
+            });
+        }
+    }
+    
+    enabled = blurEnabled;
 }
 
 - (void)setBlurType:(NSString *)blurType
 {
-  if (_visualEffectView) {
-    [_visualEffectView removeFromSuperview];
-  }
-  
   self.clipsToBounds = true;
   if ([blurType isEqual: @"xlight"]) {
     blurEffect = [BlurAmount effectWithStyle:UIBlurEffectStyleExtraLight];
@@ -23,13 +52,6 @@
   } else {
     blurEffect = [BlurAmount effectWithStyle:UIBlurEffectStyleDark];
   }
-
-    dispatch_async(dispatch_get_main_queue(), ^{
-        _visualEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
-        _visualEffectView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        _visualEffectView.frame = self.bounds;
-        [self insertSubview:_visualEffectView atIndex:0];
-    });
 }
 
 - (void)setBlurAmount:(NSNumber *)blurAmount

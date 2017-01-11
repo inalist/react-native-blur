@@ -18,6 +18,7 @@ class BlurView extends Component {
 BlurView.propTypes = {
   blurType: PropTypes.string,
   blurAmount: PropTypes.number.isRequired,
+  blurEnabled: PropTypes.bool.isRequired
 };
 
 BlurView.defaultProps = {
