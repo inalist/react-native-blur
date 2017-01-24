@@ -90,10 +90,6 @@ public class BlurViewManager extends SimpleViewManager<BlurringView> {
                 view.setBlurRadius(currentBlurRadius);
                 view.postInvalidateOnAnimation();
                 if ((animateUp && currentBlurRadius >= endRadius) || (!animateUp && currentBlurRadius <= endRadius)) {
-                    if (!animateUp) {
-                        view.setBlurRadius(0);
-                        view.postInvalidateOnAnimation();
-                    }
                     ses.shutdown();
                 }
             }
