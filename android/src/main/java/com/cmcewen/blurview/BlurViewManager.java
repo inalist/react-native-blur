@@ -50,7 +50,7 @@ public class BlurViewManager extends SimpleViewManager<BlurringView> {
         view.setDownsampleFactor(factor);
     }
 
-    @ReactProp(name = "downsampleFactor", defaultInt = defaultBlurSpeed)
+    @ReactProp(name = "blurSpeed", defaultInt = defaultBlurSpeed)
     public void setBlurSpeed(BlurringView view, int milliseconds) {
         configuredBlurSpeed = milliseconds;
     }
