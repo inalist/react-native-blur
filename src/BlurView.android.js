@@ -20,7 +20,8 @@ BlurView.propTypes = {
   blurRadius: PropTypes.number,
   overlayColor: PropTypes.string,
   downsampleFactor: PropTypes.number,
-  viewRef: PropTypes.number
+  viewRef: PropTypes.number,
+  blurSpeed: PropTypes.number
 };
 
 const NativeBlurView = requireNativeComponent('BlurView', BlurView);
